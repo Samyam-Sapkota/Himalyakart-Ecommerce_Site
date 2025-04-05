@@ -1,0 +1,5 @@
+superuser :::: samyam           samyam123
+superuser ::::: admin           admin
+
+normal user :::: bidhan          bidhan123
+

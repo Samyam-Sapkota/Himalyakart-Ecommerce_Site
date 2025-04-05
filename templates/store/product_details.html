@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+{% if product_detail %}
+     {% for product in product_detail %}
+    <div class="product_det_classname">
+        <div class="product-details">
+            <img src="{{ product.product_image.url }}" alt="Product Title" class="product-image">
+            <div class="product-info">
+
+                <h1 class="product-title">{{ product.product_name }}</h1>
+                <div class="product-description-wrapper">
+                    <p class="product_details-description">{{ product.product_description }}</p>
+                </div>
+                
+                <div class="product_details_price">
+                    <span class="product_details_currency">NPR.</span>
+                    <span class="product_details_amount">{{ product.product_price }}</span>
+                </div>
+
+          <a href="{% url 'add_cart' product.id %}"> <button class="add-to-cart">Add to Cart</button></a> 
+            </div>
+        </div>
+
+
+        {% endfor %}
+    </div>
+    
+{% else %}    
+<div class="product-details-no-product"> 
+<p>Product is either out of stock or no longer available </p> 
+</div>
+{% endif %}
+{% endblock %}
+

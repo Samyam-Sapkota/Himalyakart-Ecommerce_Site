@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="cart-page">
+    <div class="cart-wrapper">
+        <div class="cart-items-container">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Final-Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr class="cart-item-row">
+                        <td class="cart-item-info">
+                            <img src="{{ item.product.product_image.url }}" alt="Product" class="cart-item-image">
+                            <div class="cart-item-details">
+                                <h5 class="cart-item-name">{{ item.product.product_name }}</h3>
+                                
+                            </div>
+                        </td>
+                        <td class="cart-quantity-controls">
+                        <a href="{% url 'remove_from_cart' item.product.id %}">   <button class="cart-quantity-btn">-</button> </a>
+                            <span class="cart-quantity">{{ item.quantity }}</span>
+                         <a href="{% url 'add_cart' item.product.id %}">   <button class="cart-quantity-btn">+</button> </a>
+                        </td>
+                        <td class="cart-item-price">Npr {{ item.product.product_price }} each</td>
+                        <td class="cart-item-total-price">Npr final</td>
+                       
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="cart-checkout-section">
+            <h2 class="cart-checkout-title">Order Summary</h2>
+            <div class="cart-checkout-details">
+                <div class="cart-checkout-row">
+                    <span>Subtotal</span>
+                    <span>Npr {{ total }}</span>
+                </div>
+                <div class="cart-checkout-row">
+                    <span>Total Quantity</span>
+                    <span>{{ quantity }}</span>
+                </div>
+                <div class="cart-checkout-row">
+                    <span>Tax</span>
+                    <span>Npr {{ tax_amount }}</span>
+                </div>
+                <div class="cart-checkout-total">
+                    <span>Total</span>
+                    <span>{{ final_amount }}</span>
+                </div>
+            </div>
+       <a href="{% url 'checkout' %}"> <div class="cart_other_buttons_">    <button class="cart-checkout-btn">Proceed to Checkout</button></a>
+           <a href="{% url 'store_view' %}"> <button class="cart-shop-more-btn">Shop More</button></a>   </div>
+        </div>
+    </div>
+</div>
+
+
+
+ <script>
+    // Loop through all cart items and calculate the total price for each
+    document.querySelectorAll('.cart-item-row').forEach(function(itemRow) {
+        // Get the quantity and price for the current item
+        var quantity = parseInt(itemRow.querySelector('.cart-quantity').innerText); // Get quantity as an integer
+        var price = parseFloat(itemRow.querySelector('.cart-item-price').innerText.replace('Npr', '').trim()); // Get price as a float, removing the dollar sign
+        
+        // Calculate the total price
+        var totalPrice = quantity * price;
+        
+        // Update the HTML with the calculated price for the current item
+        itemRow.querySelector('.cart-item-total-price').innerText = 'Npr ' + totalPrice.toFixed(2); // Format to 2 decimal places
+    });
+</script> 
+{% endblock %}

@@ -1,0 +1,69 @@
+{% load static %}
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home_view' %}">
+            <img src="{% static 'images/logo.png' %}" alt="Your Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <!-- Categories Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-th-large"></i> Categories
+                    </a>
+                    
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'store_view' %}"><i class="fa-solid fa-tag"></i>All Categories</a></li>
+                        {% for cat in cat_obj1 %}
+                        <li><a class="dropdown-item" href="{{ cat.get_url_test }}"><i class="fa-solid fa-tag"></i> {{ cat.Cat_Name }}</a></li>
+                         {% endfor %}
+                    </ul>
+                </li>
+                <!-- Store Link -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'store_view' %}"><i class="fas fa-store"></i> Store</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <!-- Login -->
+                <li class="nav-item">
+                    
+                        <div class="user_login_status">
+                            {% if user_is_logged_in %} 
+                            <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-in-alt"></i> Logout</a>
+                                {% else %}
+                                <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                            {% endif %}
+                        </div>
+ 
+                   
+                </li>
+                <!-- Profile -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile_views' %}"><i class="fas fa-user"></i> Profile</a>
+                </li>
+                {% if user_is_logged_in %} 
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'transaction_history' %}">
+                        <i class="fas fa-file-invoice"></i>  Dashboard
+                    </a>
+                </li>
+                {% endif %}
+                <!-- Cart -->
+                <li class="nav-item">
+                    <a class="nav-link cart-icon" href="{% url 'cart_detail' %}">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                        <span class="cart-count" id="cart-count">{{ cart_count }}</span>
+                    </a>
+                </li>
+               
+            </ul>
+        </div>
+    </div>
+</nav>

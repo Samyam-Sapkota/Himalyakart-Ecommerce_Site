@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <h2 class="profile-title">User Profile</h2>
+        
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" value="{{ request.user.username }}" required>
+            </div>
+
+            {% if not request.user.is_superuser %}
+            <div class="input-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" value="{{ request.user.first_name }}" required>
+            </div>
+
+            <div class="profile-input-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" value="{{ request.user.last_name }}" required>
+            </div>
+            {% endif %}
+
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ request.user.email }}" required>
+            </div>
+
+          
+    </div>
+</div>
+
+
+{% endblock %}

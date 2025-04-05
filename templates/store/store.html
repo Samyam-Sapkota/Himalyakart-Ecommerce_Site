@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Section Pagetop -->
+<section class="section-pagetop">
+    <div class="container">
+        <h2 class="title-page text-center">Our Store</h2>
+    </div>
+</section>
+
+<!-- Section Content -->
+<section class="section-content padding-y">
+    <div class="container">
+
+        <div class="row">     
+            <!-- Sidebar -->
+            <aside class="col-md-3">
+
+                <div class="card">
+                                  <!-- Categories Filter -->
+                                    <article class="filter-group">
+                                        <header class="card-header">
+                                            
+                                            <a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_1" aria-expanded="true">
+                                                
+                                                <h6 class="title">Categories               <i class="icon-control fa fa-chevron-down"></i> </h6>
+                                            </a>
+                                        
+                                        </header>
+                                        <div class="collapse show" id="collapse_1">
+                                            <div class="card-body">
+                                                <ul class="list-menu">
+                                                    <li><a href="{% url 'store_view' %}"><strong>All Products</strong></a></li>
+                                                        
+                                                {% for cat in cat_obj1 %}    
+                                                    <li><a href="{{ cat.get_url_test }}">{{ cat.Cat_Name }}</a></li>
+                                                {% endfor %}
+                                                
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </article>
+                                   
+                    <article class="filter-group">
+                        <header class="card-header">
+                            <a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_3" aria-expanded="true">
+                                
+                                <h6 class="title">Price Range  <i class="icon-control fa fa-chevron-down"></i></h6>
+                            </a>
+                        </header>
+                        <div class="collapse show" id="collapse_3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <form action="{% url 'store_view' %}" method="get">
+
+                                    <div class="col-md-6">
+                                        <label>Min</label>
+                                        <select class="form-select" name="min_price" required>
+                                            <option value="0" selected>Npr 0</option>
+                                            <option value="500">Npr 500</option>
+                                            <option value="1000">Npr 1000</option>
+                                            <option value="2000">Npr 2000</option>
+                                            <option value="5000">Npr 5000</option>
+                                            <option value="10000">Npr 10000</option>
+                                            <option value="15000">Npr 15000</option>
+                                            <option value="20000">Npr 20000</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Max</label>
+                                        <select class="form-select" name="max_price" required>
+                                            <option value="1000">Npr 1000</option>
+                                            <option value="2000" selected>Npr 2000</option>
+                                            <option value="5000">Npr 5000</option>
+                                            <option value="10000">Npr 10000</option>
+                                            <option value="15000">Npr 15000</option>
+                                            <option value="20000">Npr 20000</option>
+                                            <option value="30000">Npr 30000+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-block mt-3" type="submit">Apply</button>
+                            </form>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+            </aside>
+            <!-- Main Content -->
+            <main class="col-md-9">
+
+                <header class="border-bottom mb-4 pb-3">
+                    <div class="form-inline">
+                        <span class="mr-md-auto"> <strong> {{ no_of_products }} </strong> items found</span>
+                    </div>
+                </header>
+
+                <div class="container">
+                    <div class="row">
+                        {% for product in products %}
+                        {% if product.is_available %}
+                        <!-- Product 1 -->
+                        <div class="col-md-4 mb-3">
+                            <div class="card store-product-card">
+                            
+                                <a href="{{ product.get_url }}"><img src="{{ product.product_image.url }}" class="card-img-top" alt="{{ product.product_name }}"></a>
+                                <div class="store-product-info">
+                                    <a href="{{ product.get_url }}"> 
+                                        <h5>{{ product.product_name }}</h5>
+                                        <p class="price">Npr {{ product.product_price }}</p>
+                                    </a>
+                                <div class="product_view_more">   <a href="{{ product.get_url }}" class="btn product_btn-primary btn-block">View Product</a>
+                                </div>
+                           </div> 
+                        </div>
+                        </div>
+                        {% else  %}
+                            <!-- Product 2 -->
+                        <div class="col-md-4 mb-3">
+                            <div class="card store-product-card">
+                            
+                                <img src="{{ product.product_image.url }}" class="card-img-top" alt="{{ product.product_name }}">
+                                <div class="store-product-out_of_stock-info">
+                                    
+                                        <h5>{{ product.product_name }}</h5>
+                                        <p class="price">Npr {{ product.product_price }}</p>
+                                  
+                                <div class="product_view_more"> <div class="btn btn-danger w-100">
+                                    <i class="fas fa-ban"></i> Out of Stock
+                                </div>
+                                </div>
+                           </div> 
+                        </div>
+                        </div>
+
+                        {% endif %}
+
+                        {% endfor %}
+                    </div>
+                </div>
+                
+
+              
+
+            </main>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

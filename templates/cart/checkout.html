@@ -1,0 +1,77 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+<body class="checkout_body">
+{% block content %}
+    <div class="checkout_container">
+        <div class="checkout_product-list">
+            <h1>Products</h1> <br> 
+            <table>
+                <thead>
+                    <tr>
+                        <th>Picture</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+
+
+                    {% for item in cart_items %}
+
+                    <tr>
+                        <td><img src="{{ item.product.product_image.url }}" alt="Product Image"></td>
+                        <td><h5>{{ item.product.product_name }}</h5></td>
+                        <td> <h5> Npr {{ item.product.product_price }} each </h5> </td>
+                        <td> <h5> {{ item.quantity }} </h5> </td>
+                    </tr>
+                   
+
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+                    
+    
+        <div class="checkout_summary">
+            <form action="{% url 'checkout' %}" method="post" id="checkout-form">
+                 {% csrf_token %}
+            <h1>Summary</h1> <br>
+          <h6>  Total Price : Npr <input type="text" value="{{ sample_price }}" name="total_price" hidden>{{ sample_price }}</h6>
+          <h6>  Tax (13%) : Npr <input type="number" value="{{ sample_tax }}" name="tax_price" hidden>{{ sample_tax }}</h6>
+          <h5 >  Grand Total : Npr <input type="number" value="{{ sample_total }}" name="grand_total_price" hidden>{{ sample_total }} </h6>  <br>
+            <div class="checkout_pay-button">
+                <button id="checkout_pay-button" name="checkout_pay-button" type="submit">Pay with Stripe</button>
+            </div>
+          
+        </form>
+        </div>
+        
+
+    </div>
+    
+    <script src="https://js.stripe.com/v3/"></script>
+
+<script>
+    document.getElementById("checkout-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        let formData = new FormData(this);
+        fetch("{% url 'checkout' %}", {
+            method: "POST",
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            var stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
+            stripe.redirectToCheckout({ sessionId: data.checkout_session_id });
+        });
+    });
+</script>
+
+
+{% endblock %}

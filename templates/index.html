@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<!-- Banner -->
+<div class="banner-container">
+    <img src="{% static 'images/banner.png' %}" class="img-fluid" alt="Banner">
+    <div class="banner-text">
+        <h1>Welcome to Our Store</h1>
+        <p class="lead">Discover Amazing Products</p>
+        <a href="#products" class="btn btn-primary btn-lg">
+            <i class="fas fa-shopping-bag"></i> Shop Now
+        </a>
+    </div>
+</div>
+
+<!-- Products Section -->
+<div class="container" id="products">
+  
+    <h2 class="text-center mb-4">Our Products</h2>
+    <div class="row g-4">
+        
+        {% for products in product_obj1  %}
+            {% if products.is_available %}
+            <div class="col-md-3 col-sm-6">
+                <div class="card product-card">
+                  <a href="{{ products.get_url }}"> <img src="{{ products.product_image.url }}" class="card-img-top" alt="Product 1"></a> 
+                    <div class="index-product-info">
+                        <a href="{{ products.get_url }}">
+                        <h5 class="card-title">{{ products.product_name }}</h5>
+                        <p class="price">Npr {{ products.product_price }}</p>
+                        <div class="btn btn-primary w-100">
+                            <i class="fas fa-eye"></i> View Details
+                        </div>
+                    </div>
+                </a>
+                </div>
+            </div>
+
+            {% else %}
+
+            <div class="col-md-3 col-sm-6">
+                <div class="card product-card">
+                   <img src="{{ products.product_image.url }}" class="card-img-top" alt="Product 1">
+                    <div class="index-product-not-available-info">
+                        
+                        <h5 class="card-title">{{ products.product_name }}</h5>
+                        <p class="price">Npr {{ products.product_price }}</p>
+                        <div class="btn btn-danger w-100">
+                            <i class="fas fa-ban"></i> Out of Stock
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+
+
+            {% endif %}
+        {% endfor %}
+        
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="history_body">
+    <div class="user_transaction_history_container">
+        <h2 style="color: #007bff; text-align: center;">Users Transaction History</h2>
+        {% if transaction_object1%}
+        <table class="user_transaction_history_table">
+            <thead>
+                <tr>
+                    <th>S.N</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Date Purchased</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for i in transaction_object1 %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.old_product }}</td>
+                    <td>{{ i.old_product_quantity }}</td>
+                    <td>Npr {{ i.old_product_price }} each</td>
+                    <td>{{ i.date_purchased }}</td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="user_transaction_history_summary">
+            <p>Overall Amount Paid: Npr {{ overall_price }}</p>
+            <p>Overall Tax Paid: Npr {{ tax_amount }}</p>
+            <p><strong>Final Amount : Npr {{ final_amount }}</strong></p>
+        </div>
+        {% else %}
+                 <br><br>   <h2 style="color: #007bff; text-align: center;">No transactions have been made </h2>
+                {% endif %}    
+    </div>
+</div>
+{% endblock %}
