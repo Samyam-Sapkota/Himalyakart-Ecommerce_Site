@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-j56+mzqdh4gy_n!&#nupdw3ssdi4dnw1!#eaa9bc^5ar#1bnp#'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*','127,0.0.1']
 
@@ -155,10 +156,9 @@ LOGIN_URL = 'login'
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_PORT=465
 EMAIL_USE_SSL=True
-EMAIL_HOST_USER="demo"
-EMAIL_HOST_PASSWORD="demo"
+EMAIL_HOST_USER=config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
 
 
-STRIPE_PUBLIC_KEY = 'f4vnpQeun2j7WT111IrZQYXMopKZbdrC3zzkm5vSVFR71jFSyhFW21Peba9rCfxlW5M00s9OeV0rV'
-STRIPE_SECRET_KEY = 'tWNAgWVge5njJfsUbtsg17wD3nNdeGdctCo2SPa534ULsYcumzleenhhvs0WkSmjqH2T2EqZr2LFv00GuvMSCdp'
-
+STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
