@@ -7,24 +7,24 @@
         
             <div class="input-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" value="{{ request.user.username }}" required>
+                <input type="text" id="username" name="username" value="{{ request.user.username }}" required readonly>
             </div>
 
             {% if not request.user.is_superuser %}
             <div class="input-group">
                 <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" value="{{ request.user.first_name }}" required>
+                <input type="text" id="firstName" name="firstName" value="{{ request.user.first_name }}" required readonly>
             </div>
 
             <div class="profile-input-group">
                 <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" value="{{ request.user.last_name }}" required>
+                <input type="text" id="lastName" name="lastName" value="{{ request.user.last_name }}" required readonly>
             </div>
             {% endif %}
 
             <div class="input-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="{{ request.user.email }}" required>
+                <input type="email" id="email" name="email" value="{{ request.user.email }}" required readonly>
             </div>
 
           
