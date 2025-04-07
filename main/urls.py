@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from .views import home,about_team,profile_views
+from .views import home,about_team,profile_views,about_project
 from contact_us.views import contact_views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -29,6 +29,7 @@ urlpatterns = [
     path('contact/',contact_views,name='contact'),
     path('our_team/',about_team,name="about_team"),
     path('auth/',include("all_auth.urls")),
-    path('profile/',profile_views,name="profile_views")
+    path('profile/',profile_views,name="profile_views"),
+    path('about/',about_project,name="about_project"),
      
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

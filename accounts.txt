@@ -1,6 +1,0 @@
-superuser :::: samyam           samyam123
-superuser ::::: admin           admin
-
-test-user ::::::: test-user       test
-normal user :::: bidhan          bidhan123
-
