@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from .views import home,about_team,profile_views,about_project
+from .views import home,profile_views,about_project
 from contact_us.views import contact_views
 from django.conf.urls.static import static
 from django.conf import settings
