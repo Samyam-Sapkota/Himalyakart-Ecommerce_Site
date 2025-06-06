@@ -7,6 +7,6 @@
 3) Install neeccessary libraries from requirement.txt .
 4) After sucessfully downloading the libraries, in settings.py of main directory please add the django secret key, debug status ,email of google and google app password.
 5) Make migrations and migrate the project.
-6) Run server to user .
+6) Run server and view the site in 127.0.0.1:8000/ .
 
 <h3>If you have any issues in this reach me through <span><a href="https://samyamsapkota.com.np">Here</span></h3>
